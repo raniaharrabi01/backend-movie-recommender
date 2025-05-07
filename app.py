@@ -3,8 +3,12 @@ from app.routes.user_routes import user_bp
 from app.routes.movie_routes import movie_bp  
 from app.routes.favorite_routes import favorites_bp  
 from app.routes.recommending_route import recommendation_bp  
-from scheduler import start_scheduler
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["http://localhost:3000"])

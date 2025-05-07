@@ -3,8 +3,24 @@ from database.mongo import items_collection
 def get_movies_from_db(page=1, limit=10):
     # Utiliser les paramètres `page` et `limit` pour paginer les résultats
     skip = (page - 1) * limit  # Le nombre d'éléments à ignorer (pages précédentes)
-    movies = list(items_collection.find().skip(skip).limit(limit))  # Récupère les films avec pagination
+    # Récupère les films avec pagination depuis la base de données
+    raw_movies = items_collection.find().skip(skip).limit(limit)
+    # Transformer les documents MongoDB en dictionnaires formatés
+    movies = []
+    for movie in raw_movies:
+        movies.append({
+            "id": str(movie["_id"]),
+            "title": movie.get("title", "Titre non disponible"),
+            "overview": movie.get("overview", "Résumé non disponible"),
+            "genres": movie.get("genres", "Genres non disponibles"),
+            "image_url": movie.get("image_url", ""),
+            "director": movie.get("director", "Réalisateur non disponible"),
+            "cast": movie.get("cast", []),
+            "rating": movie.get("rating", "Note non disponible"),
+            "release_date": movie.get("release_date", "Date de sortie non disponible")
+        })
     return movies
+
 
 def count_movies_in_db():
     # Compter le nombre total de films dans la base de données
@@ -15,7 +31,17 @@ def get_movie_details_from_db(movie_id):
     movie = items_collection.find_one({"_id": movie_id})
     if not movie:
         return None
-    return movie
+    return {
+        "id": str(movie["_id"]),
+        "title": movie.get("title", "Titre non disponible"),
+        "overview": movie.get("overview", "Résumé non disponible"),
+        "genres": movie.get("genres", "Genres non disponibles"),
+        "image_url": movie.get("image_url", ""),
+        "director": movie.get("director", "Réalisateur non disponible"),
+        "cast": movie.get("cast", []),
+        "rating": movie.get("rating", "Note non disponible"),
+        "release_date": movie.get("release_date", "Date de sortie non disponible")
+    }
 
 def search_movies(query: str):
     movies = items_collection.find(
@@ -23,5 +49,15 @@ def search_movies(query: str):
     )
     result = []
     for movie in movies:
-        result.append(movie)
+        result.append({
+            "id": str(movie["_id"]),
+            "title": movie.get("title", "Titre non disponible"),
+            "overview": movie.get("overview", "Résumé non disponible"),
+            "genres": movie.get("genres", "Genres non disponibles"),
+            "image_url": movie.get("image_url", ""),
+            "director": movie.get("director", "Réalisateur non disponible"),
+            "cast": movie.get("cast", []),
+            "rating": movie.get("rating", "Note non disponible"),
+            "release_date": movie.get("release_date", "Date de sortie non disponible")
+        })
     return result

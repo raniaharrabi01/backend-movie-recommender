@@ -23,7 +23,9 @@ def get_recommendations_for_movie(query_id):
                 "genres": movie.get("genres", "Genres non disponibles"),
                 "image_url": movie.get("image_url", ""),
                 "director": movie.get("director", "Réalisateur non disponible"),
-                "cast": movie.get("cast", [])
+                "cast": movie.get("cast", []),
+                "rating": movie.get("rating", "Note non disponible"),
+                "release_date": movie.get("release_date", "Date de sortie non disponible")
             })
         
     return recommended_movies, 200
