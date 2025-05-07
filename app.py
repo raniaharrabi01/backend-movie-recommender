@@ -7,8 +7,9 @@ from scheduler import start_scheduler
 from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
-# Enregistrer la Blueprint 'user_bp' pour la gestion des utilisateurs
+# Enregistrer la Blueprint 
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(movie_bp, url_prefix='/movie')
 app.register_blueprint(favorites_bp, url_prefix='/favorite')
