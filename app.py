@@ -11,7 +11,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
+CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
 
 # Enregistrer la Blueprint 
 app.register_blueprint(user_bp, url_prefix='/user')

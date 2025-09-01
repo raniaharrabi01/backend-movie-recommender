@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services.favorites_service import add_favorite, remove_favorite, get_favorites
+from app.services.favorites_service import add_favorite, get_favorites
 
 favorites_bp = Blueprint("favorite", __name__)
 
@@ -11,13 +11,6 @@ def add_to_favorites():
 
     response, status_code = add_favorite(data)
     return jsonify(response), status_code
-
-
-@favorites_bp.route("/api/favorites/<user_id>/<item_id>", methods=["DELETE"])
-def remove_from_favorites(user_id, item_id):
-    response, status_code = remove_favorite(user_id, item_id)
-    return jsonify(response), status_code
-
 
 @favorites_bp.route("/api/favorites/<user_id>", methods=["GET"])
 def get_user_favorites(user_id):

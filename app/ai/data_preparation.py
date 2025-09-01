@@ -13,7 +13,7 @@ def clean_text(text):
 
 # Chargement des données
 def load_data():
-    docs = list(items_collection.find({}))  # Utiliser la collection importée
+    docs = list(items_collection.find({})) 
     print("📊 Nombre de documents récupérés depuis MongoDB :", len(docs))
     films = []
     for doc in docs:

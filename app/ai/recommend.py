@@ -19,7 +19,7 @@ def recommend_movies(query_id, n=5):
     # Trouver les n films les plus similaires (en ignorant le film lui-même)
     distances, indices = model.kneighbors([embeddings[idx]], n_neighbors=n+1)
 
-    recommended_indices = indices.flatten()[1:]  # On saute le premier (le film lui-même)
+    recommended_indices = indices.flatten()[1:] # On saute le premier (le film lui-même)
     recommended_movies = []
     for i, movie_idx in enumerate(recommended_indices):
         movie = df.iloc[movie_idx]

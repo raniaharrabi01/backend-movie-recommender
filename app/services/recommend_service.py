@@ -1,6 +1,5 @@
 from app.ai.recommend import recommend_movies
 from database.mongo import items_collection
-from bson import ObjectId
 
 def get_recommendations_for_movie(query_id):
     # Obtenir les IDs recommandés
@@ -27,5 +26,5 @@ def get_recommendations_for_movie(query_id):
                 "rating": movie.get("rating", "Note non disponible"),
                 "release_date": movie.get("release_date", "Date de sortie non disponible")
             })
-        
+    print(f"Recommandations pour le film {query_id}: {recommended_movies}")
     return recommended_movies, 200
